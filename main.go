@@ -1,5 +1,6 @@
 package main
 
+//Basic imports
 import (
 	"encoding/json"
 	"log"
@@ -31,6 +32,8 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type" , "application/json")
 	json.NewEncoder(w).Encode(books)
 }
+
+//Get book with id
 func getBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type" , "application/json")
 	params := mux.Vars(r)
@@ -42,6 +45,8 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(&Book{})
 }
+
+//Create book with post method
 func createBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type" , "application/json")
 	var book Book
@@ -50,6 +55,8 @@ func createBook(w http.ResponseWriter, r *http.Request) {
 	books = append(books, book)
 	json.NewEncoder(w).Encode(book)
 }
+
+//Update books with id with PUT method
 func updateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type" , "application/json")
 	params := mux.Vars(r)
@@ -66,6 +73,8 @@ func updateBook(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(&Book{})
 }
+
+//Delete Books with ID using DELETE methos
 func deleteBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type" , "application/json")
 	params := mux.Vars(r)
@@ -83,6 +92,7 @@ func main() {
 	//Intializing router
 	r := mux.NewRouter()
 
+	//Intsializing mock data for books
 	books = append(books, Book{ID : "1" , Isbn : "1265415" , Title: "Reach your goals" , Author : &Author{firstname: "john" , lastname : "doe"}})
 	books = append(books, Book{ID : "2" , Isbn : "8646545" , Title: "Read my Mind" , Author : &Author{firstname: "Mike" , lastname : "Vosaski"}})
 	books = append(books, Book{ID : "3" , Isbn : "1485238" , Title: "Black Balls" , Author : &Author{firstname: "Kim" , lastname : "Kardashian"}})
